@@ -11,9 +11,7 @@ describe('Georcoder', function(){
   console.log(CLIENT_ID,CLIENT_SECRET,W3W_KEY);
 
   var geocoder;
-  var provider = [];
-
-  var extend = [
+  var provider = [
     {
     type: 'geocoder-arcgis',
     params: {
@@ -21,7 +19,10 @@ describe('Georcoder', function(){
       client_secret: CLIENT_SECRET,
 
     }
-  },
+  }
+  ];
+
+  var extend = [
   {
     type: 'osm-regions',
     params: {}
