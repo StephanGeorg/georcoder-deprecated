@@ -87,9 +87,9 @@ describe('Georcoder', function(){
           done();
         })
         .catch(function(error){
-          console.log(error);
-          res.should.be.json;
-          done();
+          //console.log(error);
+          //res.should.be.json;
+          //done();
         });
     });
 
