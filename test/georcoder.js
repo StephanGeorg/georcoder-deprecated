@@ -10,46 +10,21 @@ describe('Georcoder', function(){
 
   console.log(CLIENT_ID,CLIENT_SECRET,W3W_KEY);
 
-  var geocoder;
-  var provider = [];
-
-  var extend = [
-
-    {
-    type: 'geocoder-arcgis',
-    params: {
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-
-    }
-
-  },
-  {
-    type: 'osm-regions',
-    params: {}
-  },
-  {
-    type: 'w3w-node-wrapper',
-    params: {
-      apiKey: W3W_KEY
-    }
-  }];
+  var options = {
+      w3w: {
+        apiKey: W3W_KEY
+      },
+      osm: {},
+      arcgis: {
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET
+      }
+    };
 
   describe('Initializating', function() {
 
-    it('without any arguments', function() {
-      (function() {
-        geocoder = new Georcoder();
-      }).should.not.throw();
-    });
-
     it('with additional arguments', function() {
-
-      geocoder = new Georcoder({
-        provider: provider,
-        extend: extend
-      });
-
+      geocoder = new Georcoder(options);
     });
 
   });
@@ -58,10 +33,7 @@ describe('Georcoder', function(){
   describe('API responses without OAuth', function() {
 
     beforeEach(function(done){
-      geocoder = new Georcoder({
-        provider: provider,
-        extend: extend
-      });
+      geocoder = new Georcoder(options);
       done();
     });
 
@@ -69,7 +41,7 @@ describe('Georcoder', function(){
 
     it('should be able to reverse geocode', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.reverse('13.4482975,52.47432930000001')
+      geocoder.reverse([ 13.438096726000424, 52.49419352400048])
         .then(function(res) {
           res.should.be.json;
           console.log(res);
@@ -80,29 +52,18 @@ describe('Georcoder', function(){
         });
     });
 
-    it('should not be able to reverse geocode', function(done) {
+    it('should be able to geocode', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.reverse('11.1691,53.2700389')
+      geocoder.geocode('Glogauer Straße 5, 10999, Berlin, Germany')
         .then(function(res) {
-          console.log(res);
           res.should.be.json;
+          console.log(res);
           done();
         })
         .catch(function(error){
-          //console.log(error);
-          //res.should.be.json;
-          //done();
+          console.log(error);
         });
     });
-
-    /*it('should be able to geocode', function(done) {
-      this.timeout(TIMEOUT);
-      geocoder.geocode('Berlin').then(function(res) {
-        res.should.be.json;
-        done();
-      });
-    });*/
-
 
 
 
