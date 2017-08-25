@@ -14,7 +14,7 @@
   "dependencies": {
     "lodash": "~4.3.0",
     "w3w-node-wrapper": "^2.0.0",
-    "geocoder-arcgis": "^1.1.2",
+    "geocoder-arcgis": "^1.2.7",
     "osm-regions": "https://github.com/StephanGeorg/osm-regions/archive/463f2b03e3669be5d60389d027247551f7312a7f.tar.gz"
   },
   "devDependencies": {
